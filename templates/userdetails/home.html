@@ -3,58 +3,112 @@
 
 {% block title %}<title>User Details</title>{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="container">
     <div class="row main">
+        <div class="col-md-4"/>
         <div class="main-login main-center">
             <h4 style="text-align: center;"><b>User Details Form</h4>
-            <form>
-                {% for a in form %}
-                {{ a.field.max_length }}
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="name" type="text" class="form-control" name="email" placeholder="Name">
+            <form class="text-center" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{form.name.labe}}
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <span>
+                                {{form.name}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-
-              <!--   <p><label for="id_subject">Subject:</label>
-                    <input id="id_subject" type="text" name="subject" maxlength="100" required></p>
-
-
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                <div class="form-group">
+                    {{form.email.labe}}
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <span>
+                                {{form.email}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                <div class="form-group">
+                    {{form.mobile.labe}}
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <span>
+                                {{form.mobile}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                <div class="form-group">
+                    {{form.address.labe}}
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <span>
+                                {{form.address}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                <div class="form-group">
+                    {{form.dob.labe}}
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <span>
+                                {{form.dob}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                <div class="form-group">
+                    {{form.blood_group.labe}}
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                            <span>
+                                {{form.blood_group}}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">Text</span>
-                    <input id="msg" type="text" class="form-control" name="msg" placeholder="Additional Info">
-                </div> -->
-                {%endfor%}
-            </form>
-      <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <div>
+                    <h4>Gender</h4>                               
+                    <div style="padding-top: 5px;"> 
+                        <label class="radio-inline">
+                            <input type="radio" name="gender" id="id_gender_0" value="M" required/>
+                                   Male
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="gender" id="id_gender_1" value="F" required/>
+                                   Female
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                <div>
+                    <button id="column_add" class="btn btn-primary btn-sm">
+                        Submit
+                    </button>
+                </div>
+                </div>
+         </form>
+         <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Address</th>
+                <th>Dob</th>
+                <th>Gender</th>
+                <th>Blood Group</th>
+                <
             </tr>
         </thead>
         <tbody>
@@ -65,12 +119,12 @@
                 <td>61</td>
                 <td>2011/04/25</td>
                 <td>$320,800</td>
+                <td>23156313</td>
             </tr>
         </tbody>
     </table>
       </div>
     </div>
   </div>
-
 
 {% endblock %}
