@@ -12,5 +12,6 @@ from .views import (UserDetail)
 urlpatterns = [
 
     url(r'^$', UserDetail.as_view(), name='userdetail'),
+    
 
 ]
