@@ -141,12 +141,12 @@
                     {{ detail.blood_group }}
                 </td>
                 <td>
-                    <button id="{{detail.id}}_edit" class="btn btn-primary btn-sm">
+                    <button id="{{detail.id}}_edit" data-attr="{{detail.id}}"  class="btn btn-primary btn-sm btn-edit">
                         <i class="glyphicon glyphicon-edit" aria-hidden="true">Edit</i>
                     </button>
                 </td>
                 <td>
-                    <button id="{{detail.id}}_delete" class="btn btn-primary btn-sm">
+                    <button id="{{detail.id}}_delete" data-attr="{{detail.id}}" class="btn btn-primary btn-sm btn-dlt">
                         <i class="glyphicon glyphicon-remove" aria-hidden="true">Delete</i>
                     </button>
                 </td>

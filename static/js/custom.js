@@ -24,17 +24,20 @@ $("#column_add").click(function (event) {
                 addrowvalue.push(result['dob']);
                 addrowvalue.push(result['gender']);
                 addrowvalue.push(result['blood_group']);
+                var record_id = result['id']
                 addrowvalue.push(
-                '<button id="column_update" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit" aria-hidden="true">Edit</i></button>');
+                '<button id="'+record_id+'_edit" data-attr="'+record_id+'" class="btn btn-primary btn-sm btn-edit"><i class="glyphicon glyphicon-edit" aria-hidden="true">Edit</i></button>');
                 addrowvalue.push(
-                  '<button id="column_delete" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-remove" aria-hidden="true">Delete</i></button>');
+                  '<button id="'+record_id+'_delete" data-attr="'+record_id+'" class="btn btn-primary btn-sm btn-dlt"><i class="glyphicon glyphicon-remove" aria-hidden="true">Delete</i></button>');
 
+                var rowIndex = table.fnAddData(addrowvalue);
+                var row = table.fnGetNodes(rowIndex);
+                $(row).attr( 'id', 'MyUniqueID' );
                 debugger;
-                table.row.add(addrowvalue).draw();
-
+/*                table.row.add(addrowvalue).draw();
+*/
         }else{
              $(general_errors).after().text(response['response']);
-          debugger;
 
         }
         
@@ -42,6 +45,40 @@ $("#column_add").click(function (event) {
         
       });
 
+    });
+$(".btn-dlt").click(function (event) {
+    event.preventDefault();
+    if (confirm('Are you sure you want to delete this record?')){
+      var form = $(this).closest("form");
+      debugger
+      value = {"id":$(this).data("attr"),"row_id":this.id}
+      $.ajax({
+            url: "/delete/",
+            type: "POST",
+            data: value,
+            dataType: 'json',
+        success: function (response) {
+          if (response['status'] == 'success'){
+
+                var table = $('#example').DataTable();
+
+                var addrowvalue = [];
+                var result = JSON.parse(response['response']);
+                var record_id = result['id']
+                var row_id = '#'+result['row_id']
+                  debugger;
+                table.row(row_id).remove().draw( false );
+
+        }else{
+             $(general_errors).after().text(response['response']);
+
+        }
+
+        },
+        
+      });
+    }
+    return false;
     });
 } );
 
