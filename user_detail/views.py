@@ -59,16 +59,19 @@ def edit(request):
         id = int(request.POST.get('default_user_id'))
         # import pdb; pdb.set_trace()
         user, created = UserProfile.objects.get_or_create(id=id)
-        import pdb; pdb.set_trace()
-        # user.name = request.POST.get("name","")
-        # user.email = request.POST.get("city","")
-        # user.address = request.POST.get("number","")
-        # user.mobile = request.POST.get("number","")
-        # user.dob = request.POST.get("number","")
-        # user.blood_group = request.POST.get("number","")
-        # user.gender = request.POST.get("number","")
-
-        # user.save()
+        if not created:
+            user.name = request.POST.get("name","")
+            user.email = request.POST.get("email","")
+            user.address = request.POST.get("address","")
+            user.mobile = request.POST.get("mobile","")
+            user.dob = request.POST.get("dob","")
+            user.blood_group = request.POST.get("blood_group","")
+            user.gender = request.POST.get("gender","")
+            user.save()
+            import pdb;pdb.set_trace()
+            return JsonResponse({'status': 'success', 'response': json.dumps(request.POST)})
+        else:
+            return
 
         # user_detail = UserProfile.objects.filter(id=id).values()
         # user_detail[0]['id'] = request.POST.get("id","")
