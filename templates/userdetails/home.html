@@ -9,8 +9,9 @@
         <div class="col-md-4"/>
         <div class="main-login main-center">
             <h4 style="text-align: center;"><b>User Details Form</h4>
-            <form class="text-center" method="post">
+            <form class="text-center" id="userdetails" method="post">
                 {% csrf_token %}
+                <input type="text" id="user_id" name="default_user_id">
                 <div class="form-group">
                     {{form.name.labe}}
                     <div>
@@ -61,7 +62,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                             <span>
-                                {{form.dob}}
+                                {{form.dob }}
                             </span>
                         </div>
                     </div>
@@ -96,7 +97,7 @@
                 </div>
                 <div class="form-group">
                 <div>
-                    <button id="column_add" class="btn btn-primary btn-sm">
+                    <button id="column_add" class="btn btn-primary btn-sm" {% if s_id %}value={{ s_id }}{% endif %} id="s_id"  >
                         Submit
                     </button>
                 </div>
@@ -118,7 +119,7 @@
         </thead>
         <tbody>
             {% for detail in user_data %}
-            <tr>
+            <tr id="{{detail.id}}_row">
                 <td>
                     {{ detail.name }}
                 </td>

@@ -2,13 +2,14 @@ $(document).ready(function() {
     $('#example').DataTable();
 
 $("#column_add").click(function (event) {
-  debugger;
     event.preventDefault();
+    if (!$("#column_add").data("attr")){
       var form = $(this).closest("form");
+        debugger
       $.ajax({
             url: "/",
             type: "POST",
-            data: $(this).closest('form').serialize(),
+            data: $(this).closest('form').serialize(),            
             dataType: 'json',
         success: function (response) {
           if (response['status'] == 'success'){
@@ -29,13 +30,8 @@ $("#column_add").click(function (event) {
                 '<button id="'+record_id+'_edit" data-attr="'+record_id+'" class="btn btn-primary btn-sm btn-edit"><i class="glyphicon glyphicon-edit" aria-hidden="true">Edit</i></button>');
                 addrowvalue.push(
                   '<button id="'+record_id+'_delete" data-attr="'+record_id+'" class="btn btn-primary btn-sm btn-dlt"><i class="glyphicon glyphicon-remove" aria-hidden="true">Delete</i></button>');
-
-                var rowIndex = table.fnAddData(addrowvalue);
-                var row = table.fnGetNodes(rowIndex);
-                $(row).attr( 'id', 'MyUniqueID' );
-                debugger;
-/*                table.row.add(addrowvalue).draw();
-*/
+                table.row.add(addrowvalue).node().id = record_id +'_row';
+                table.draw( false );
         }else{
              $(general_errors).after().text(response['response']);
 
@@ -44,19 +40,45 @@ $("#column_add").click(function (event) {
         },
         
       });
+     }else if($("#column_add").data("attr")){
+                var obj = $('.form-control')
+                function setFields(elms, data){
+                    obj.each(function(index){
+                        $(this).val(data[$(this).attr('name')]);
+                    });
+                return data;
+                }
+                result = $(this).closest('form').serialize()
+                result_rcrd = {'record_id':$("#column_add").data("attr")}
 
-    });
-$(".btn-dlt").click(function (event) {
+/*                result = {'record_id':$("#column_add").data("attr"),$(this).serialize()}
+*/                  debugger;
+                 $.ajax({ // create an AJAX call...
+                    data: result,// get the form data
+                    type: "POST",
+                    dataType:'JSON', // GET or POST
+                    url: /edit/, // the file to call
+                    success: function(response) { 
+                     
+                     }
+                });
+            }else{}
+            return false;
+          });
+
+
+
+
+$(document.body).on("click",".btn-dlt", function (event) {
     event.preventDefault();
     if (confirm('Are you sure you want to delete this record?')){
       var form = $(this).closest("form");
-      debugger
-      value = {"id":$(this).data("attr"),"row_id":this.id}
+      value = {"id":$(this).data("attr"),"row_id":$(this).parent().parent().attr('id')}
       $.ajax({
             url: "/delete/",
             type: "POST",
             data: value,
-            dataType: 'json',
+            dataType: 'JSON',
         success: function (response) {
           if (response['status'] == 'success'){
 
@@ -66,7 +88,6 @@ $(".btn-dlt").click(function (event) {
                 var result = JSON.parse(response['response']);
                 var record_id = result['id']
                 var row_id = '#'+result['row_id']
-                  debugger;
                 table.row(row_id).remove().draw( false );
 
         }else{
@@ -80,54 +101,22 @@ $(".btn-dlt").click(function (event) {
     }
     return false;
     });
+
+$(document.body).on("click",".btn-edit", function (event) {
+    event.preventDefault();
+    var table = $('#example').DataTable();
+    var data = table.row($(this).parent().parent()).data();
+    debugger;
+     $("#name").val(data[0]);
+     $("#address").val(data[3]);
+     $("#mobile").val(data[2]);
+     $("#email").val(data[1]);
+     $("#dob").val(data[4]);
+     $("#gender").val(data[5]);
+     $("#blood_group").val(data[6]);
+     $("#user_id").val($(this).data("attr"));
+     $("#column_add").html("Update");
+     $("#column_add").data("attr", $(this).data("attr"))
+    });
 } );
 
-
-
-/*
-            if (response['status']=='success'){
-                var table = $('#profile_details_table').DataTable();
-
-                debugger
-                var value_list = [];
-
-                value_list.push(response['name']);
-                value_list.push(response['email']);
-                value_list.push(response['mobile']);
-                value_list.push(response['address']);
-                value_list.push(response['gender']);
-                value_list.push(response['user_dob']);
-                value_list.push(response['blood_group']);
-
-                $('#profile_details_table').DataTable().row.add( value_list ).draw();
-
-            }else{
-
-                var form_input = $("form#user_detail_form :input");
-
-                var required_fields = [];
-
-                for(var i=0; i<form_input.length; i++){
-                    if (JSON.parse(response['response'])[form_input[i].name]){
-                        required_fields.push(i);
-                    }
-                }
-
-                for(var j=0; j<required_fields.length; j++){
-
-
-                    var input_field = form_input[required_fields[j]];
-
-                    
-                    var error_msg = JSON.parse(response['response'])[input_field.name];
-
-                    $(input_field).css({'border-color': 'red'});
-
-                    $(input_field).next().text(error_msg);
-                }
-
-            }
-        }
-    });
-
-});*/

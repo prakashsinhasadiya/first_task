@@ -5,6 +5,8 @@ from user_detail.forms import UserDetailsForm
 from user_detail.models import UserProfile
 from django.http import JsonResponse,HttpResponse
 import json
+from datetime import datetime
+
 
 # Create your views here.
 
@@ -19,6 +21,7 @@ class UserDetail(View):
     def post(self,request):
 
         response ={}
+        import pdb; pdb.set_trace()
         userdetails_form = UserDetailsForm(request.POST)
         
         if userdetails_form.is_valid():
@@ -48,3 +51,27 @@ def delete(request):
         student = UserProfile.objects.filter(id=id).delete()
         import pdb;pdb.set_trace()
         return JsonResponse({'status': 'success', 'response': json.dumps(request.POST)})
+
+@csrf_exempt
+def edit(request):
+    if request.method == 'POST':
+        pass
+        id = int(request.POST.get('default_user_id'))
+        # import pdb; pdb.set_trace()
+        user, created = UserProfile.objects.get_or_create(id=id)
+        import pdb; pdb.set_trace()
+        # user.name = request.POST.get("name","")
+        # user.email = request.POST.get("city","")
+        # user.address = request.POST.get("number","")
+        # user.mobile = request.POST.get("number","")
+        # user.dob = request.POST.get("number","")
+        # user.blood_group = request.POST.get("number","")
+        # user.gender = request.POST.get("number","")
+
+        # user.save()
+
+        # user_detail = UserProfile.objects.filter(id=id).values()
+        # user_detail[0]['id'] = request.POST.get("id","")
+        # user_detail[0]['row_id'] = request.POST.get("row_id","")
+        # import pdb; pdb.set_trace()
+        # return JsonResponse({'status': 'success', 'response': json.dumps(user_detail[0])})
