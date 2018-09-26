@@ -162,5 +162,6 @@
       </div>
     </div>
   </div>
-
+var date = new Date(row_data[5]);
+new_date = date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("0" + (date.getDate())).slice(-2)
 {% endblock %}

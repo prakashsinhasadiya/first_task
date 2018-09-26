@@ -131,6 +131,14 @@ $(document.body).on("click",".btn-edit", function (event) {
      $("#mobile").val(data[2]);
      $("#email").val(data[1]);
      $("#dob").val(data[4]);
+     if ((data[5]) == 'M') {
+        $("#id_gender_0").prop("checked", true);
+        $("#id_gender_0").attr('checked', 'checked');
+      } else {
+        $("#id_gender_1").attr('checked', 'checked');
+        $("#id_gender_1").prop("checked", true);
+    }
+
      $("#gender").val(data[5]);
      $("#blood_group").val(data[6]);
      $("#user_id").val($(this).data("attr"));

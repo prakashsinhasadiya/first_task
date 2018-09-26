@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'first_task_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', 
+        'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'first_task',
-        # 'USER': 'asadiya',
-        # 'PASSWORD': 'Drc@1234',
-        # 'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'USER': 'asadiya',
+        'PASSWORD': 'Drc@1234',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         # 'PORT': '3306',
     }
 }
